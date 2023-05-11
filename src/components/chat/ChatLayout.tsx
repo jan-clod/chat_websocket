@@ -15,6 +15,9 @@ import { Profile } from "../profile/Profile";
 import { Setting } from "../profile/Settig";
 import { Login, SignUp } from "../login/LoginPage";
 import { Navbar } from "../navbar/Navbar";
+import { AudioOutlined } from "@ant-design/icons";
+import { Input } from "antd";
+import Search from "antd/es/input/Search";
 
 const { Header, Sider, Content } = Layout;
 export const LayoutApp: React.FC = () => {
@@ -170,7 +173,14 @@ export const LayoutApp: React.FC = () => {
     </Layout>
   );
 };
-
+const suffix = (
+  <AudioOutlined
+    style={{
+      fontSize: 16,
+      color: "#1890ff",
+    }}
+  />
+);
 export const ChatLayout: React.FC = () => {
   let [messages, setMessages] = useState<ChatMessageType[]>([]); //массив с получеными сообщениями
   let [readyStatus, setReadyStatus] = useState<"pending" | "ready">("pending");
@@ -204,9 +214,8 @@ export const ChatLayout: React.FC = () => {
     }
   };
   return (
-    <div className="chat">
-
-      <div className="chat_messages">
+    <div className="ChatLayout">
+      <div className="chat_winodw">
         <MessageWindow
           message={message}
           messages={messages}
@@ -214,27 +223,24 @@ export const ChatLayout: React.FC = () => {
           wsChanel={wsChanel}
         />
         <div className="send_message">
-          <input
+          <Search
+            placeholder="input message"
+            enterButton= {`Send `}
+            size="large"
+            suffix={suffix}
             onKeyPress={onKeyPressHandler}
             onChange={(e) => setMessage(e.currentTarget.value)}
             value={message}
-            placeholder="написать сообщение"
             name=""
             id="1"
-            className="form-text"
-          ></input>
-          <Button
+            className="form_inputs"
+            onSearch={sendMessage}
             disabled={readyStatus === "pending"}
-            onClick={sendMessage}
-            type="primary"
-          >
-            send
-            <SendOutlined />
-          </Button>
+          />
         </div>
       </div>
       <div className="chat_info">
-        <h1>Chat info</h1>
+        <h2>Chat info</h2>
       </div>
     </div>
   );

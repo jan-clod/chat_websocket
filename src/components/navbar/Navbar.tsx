@@ -10,43 +10,53 @@ import {
 } from "@ant-design/icons";
 import { useState } from "react";
 export const Navbar = () => {
-  console.log(window.location.pathname);
-  
-  const [ActiveProfile,setProfile] = useState(false)
-  const [ActiveChat,setChat] = useState(true)
-  const [ActiveSetting,setSetting] = useState(false)
+  const [ActiveProfile, setProfile] = useState(false);
+  const [ActiveChat, setChat] = useState(false);
+  const [ActiveSetting, setSetting] = useState(false);
   return (
     <div className="navbar">
-      <div onClick={()=>{
-        if(window.location.pathname === '/profile' ) {
-          setProfile(true)
-          setChat(false)
-          setSetting(false)
-        }
-      }} className={ActiveProfile ? 'active': 'menu'}>
-        <UserOutlined />
-        <NavLink to={"/profile"} >profile</NavLink>
-      </div>
-      <div onClick={()=>{
-        if(window.location.pathname === '/chat' ) {
-          setProfile(false)
-          setChat(true)
-          setSetting(false)
-        }
-      }} className={ActiveChat ? 'active' : 'menu'}>
-        <WechatOutlined />
-        <NavLink to={"/chat"}>chat</NavLink>
-      </div>
-      <div onClick={()=>{
-        if(window.location.pathname === '/setting' ) {
-          setProfile(false)
-          setChat(false)
-          setSetting(true)
-        }
-      }}   className={ActiveSetting ? 'active': 'menu'}>
-        <SettingOutlined />
-        <NavLink to={"/setting"}>setting</NavLink>
-      </div>
+      <NavLink className="nav" to={"/profile"}>
+        <div
+          onClick={() => {
+            window.location.pathname = "/profile";
+            setProfile(true);
+            setChat(false);
+            setSetting(false);
+          }}
+          className={window.location.pathname === "/profile" ? "active" : "menu"}
+        >
+          <UserOutlined />
+          <p>Profile</p>
+        </div>
+      </NavLink>
+      <NavLink className="nav" to={"/chat"}>
+        <div
+          onClick={() => {
+            window.location.pathname = "/chat";
+            setProfile(false);
+            setChat(true);
+            setSetting(false);
+          }}
+          className={window.location.pathname === "/chat" ? "active" : "menu"}
+        >
+          <WechatOutlined />
+          <p>Chat</p>
+        </div>
+      </NavLink>
+      <NavLink className="nav" to={"/setting"}>
+        <div
+          onClick={() => {
+            window.location.pathname = "/setting";
+            setProfile(false);
+            setChat(false);
+            setSetting(true);
+          }}
+          className={window.location.pathname === "/setting" ? "active" : "menu"}
+        >
+          <SettingOutlined />
+          <p>Setting</p>
+        </div>
+      </NavLink>
     </div>
   );
 };

@@ -16,29 +16,25 @@ export type propsType = {
 };
 
 export const MessageWindow = ({ setMessage, ...props }: propsType) => {
-  const onWin = (e: any) => {
-    window.scrollTo({
-      top: 2000,
-      behavior: "smooth",
-    });
-  };
   const messagesAnchorRef: any = useRef<HTMLDivElement>(null);
   useEffect(() => {}, []);
   useEffect(() => {
-    messagesAnchorRef.current.scrollIntoView({ behavior: "smooth" });
+    setTimeout(()=>{
+      messagesAnchorRef.current.scrollIntoView({ behavior: "smooth" });
+    },3000)
   }, [props]);
   const click = () => {
     messagesAnchorRef.current.scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <div className="messageBlock">
+    <div className="messages">
       {props.messages.map((el, key) => {
         return (
           <div key={key} className="singleMessage">
             <div className="userPhoto">
               <img src={el.photo} alt="" />
             </div>
-            <div>
+            <div className="message_body">
               <h3>{el.userName}</h3>
               <p>{el.message}</p>
             </div>
@@ -48,7 +44,7 @@ export const MessageWindow = ({ setMessage, ...props }: propsType) => {
       <div className="↓" onClick={click}>
         <TfiArrowCircleDown />
       </div>
-      <div ref={messagesAnchorRef}></div>
+      <div className="anchor" ref={messagesAnchorRef}></div>
     </div>
   );
 };
