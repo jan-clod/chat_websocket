@@ -1,0 +1,48 @@
+.chat {
+  background-color: rgb(236, 236, 236);
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1.8fr 0px 0.7fr;
+  grid-template-columns: 1.8fr 0.7fr;
+  -ms-grid-rows: 1.9fr;
+  grid-template-rows: 1.9fr;
+  gap: 0px 0px;
+      grid-template-areas: "chat_messages chat_info";
+}
+
+.chat_messages {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  border: 20px solid white;
+  border-bottom: 0px;
+  grid-area: chat_messages;
+}
+.chat_messages .send_message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 1px solid red;
+  height: 10%;
+}
+
+.chat_info {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: chat_info;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.messageBlock {
+  height: 75vh;
+  margin: 20px;
+  margin-right: 5px;
+  overflow-y: auto;
+}
