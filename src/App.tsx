@@ -19,11 +19,11 @@ function App() {
     <div className="App">
       <Header />
       <Navbar />
-      <div className="main"> 
+      <div className="main">
         <Routes>
+          <Route path="/*" element={<ChatLayout />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/chat" element={<ChatLayout />} />
-          <Route path="/" element={<ChatLayout />} />
+          {/* <Route path="/chat" element={<ChatLayout />} /> */}
           <Route path="/setting" element={<Setting />} />
           <Route path="/login_page" element={<Login isAuth={() => ""} />} />
           <Route path="/sign_up" element={<SignUp />} />
