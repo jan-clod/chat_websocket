@@ -18,7 +18,6 @@ export const Navbar = () => {
       <NavLink className="nav" to={"/profile"}>
         <div
           onClick={() => {
-            window.location.pathname = "/profile";
             setProfile(true);
             setChat(false);
             setSetting(false);
@@ -32,7 +31,6 @@ export const Navbar = () => {
       <NavLink className="nav" to={"/"}>
         <div
           onClick={() => {
-            window.location.pathname = "/";
             setProfile(false);
             setChat(true);
             setSetting(false);
@@ -46,7 +44,6 @@ export const Navbar = () => {
       <NavLink className="nav" to={"/setting"}>
         <div
           onClick={() => {
-            window.location.pathname = "/setting";
             setProfile(false);
             setChat(false);
             setSetting(true);
