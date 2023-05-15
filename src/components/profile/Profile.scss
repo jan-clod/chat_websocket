@@ -3,14 +3,13 @@
   padding: 20px;
   .profile_photo {
     position: relative;
-    img{
-
+    img {
     }
     .update_PhotoButton {
       position: absolute;
       float: right;
       left: 300px;
-      top:270px;
+      top: 270px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -65,32 +64,34 @@
     position: absolute;
   }
 }
-.photo_container{
+.photo_container {
   width: 300px;
   height: 300px;
 }
 
 @media (max-width: 500px) {
   .profile {
+  overflow-x: hidden;
+
     padding: 0;
     padding-bottom: 0.1px;
     .profile_photo {
+      position: relative;
       img {
         width: 100%;
       }
       .update_PhotoButton {
-        position: relative;
+        position: absolute;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: larger;
         background-color: rgba(240, 248, 255, 0.672);
         border-radius: 50%;
-        margin-top: -23px;
-        margin-right: 20px;
         width: 50px;
         height: 50px;
-        float: right;
+        right: 15px;
+        top: 370px;
         cursor: pointer;
         :hover {
           background-color: rgb(240, 248, 255);
@@ -114,4 +115,9 @@
       }
     }
   }
+  .photo_container {
+    width: 100vw;
+    height: 100vw;
+  }
+
 }

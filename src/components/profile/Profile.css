@@ -79,14 +79,18 @@
 
 @media (max-width: 500px) {
   .profile {
+    overflow-x: hidden;
     padding: 0;
     padding-bottom: 0.1px;
+  }
+  .profile .profile_photo {
+    position: relative;
   }
   .profile .profile_photo img {
     width: 100%;
   }
   .profile .profile_photo .update_PhotoButton {
-    position: relative;
+    position: absolute;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -99,11 +103,10 @@
     font-size: larger;
     background-color: rgba(240, 248, 255, 0.672);
     border-radius: 50%;
-    margin-top: -23px;
-    margin-right: 20px;
     width: 50px;
     height: 50px;
-    float: right;
+    right: 15px;
+    top: 370px;
     cursor: pointer;
   }
   .profile .profile_photo .update_PhotoButton :hover {
@@ -124,5 +127,9 @@
   .profile .profile_info .dop_info {
     color: rgb(63, 63, 63);
     font-weight: 300;
+  }
+  .photo_container {
+    width: 100vw;
+    height: 100vw;
   }
 }

@@ -18,14 +18,13 @@ function ChatLayout() {
   let [wsChanel, setWsChanel] = useState<WebSocket | null>(null); //ws храним в state для того что бы при измении канал была перерисовка
   if (wsChanel !== null) {
     wsChanel.onclose = function() {
-      alert("Error occurred.");
+      alert("Error WS.");
    }
   }
   useEffect(() => {
-    let ws: WebSocket;
-    const closeHadler = () => {
+    let ws: WebSocket; // объявляем переменную снаружи
+    const closeHadler = () => { 
       alert("CLOSE WS");
-      debugger;
       setTimeout(createChanel, 3000); //при закрытии канала пытаемся установить новый канал
     };
     function createChanel() {
@@ -61,12 +60,10 @@ function ChatLayout() {
 
   useEffect(() => {
     const openHandler = () => {
-      console.log("open", "open_event");
       setReadyStatus("ready");
     }; //когда канал откроется отменим состояние для дизебла кнопки
     wsChanel?.addEventListener("open", () => openHandler());
     return () => {
-      //cleanUp function
       wsChanel?.removeEventListener("open", openHandler);
     };
   }, [wsChanel]);
