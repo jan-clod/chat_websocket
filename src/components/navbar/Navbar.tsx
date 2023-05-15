@@ -29,15 +29,15 @@ export const Navbar = () => {
           <p>Profile</p>
         </div>
       </NavLink>
-      <NavLink className="nav" to={"/chat"}>
+      <NavLink className="nav" to={"/"}>
         <div
           onClick={() => {
-            window.location.pathname = "/chat";
+            window.location.pathname = "/";
             setProfile(false);
             setChat(true);
             setSetting(false);
           }}
-          className={window.location.pathname === "/chat" ? "active" : "menu"}
+          className={window.location.pathname === "/" ? "active" : "menu"}
         >
           <WechatOutlined />
           <p>Chat</p>
