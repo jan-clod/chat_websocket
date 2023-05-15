@@ -105,10 +105,11 @@ export const Profile = () => {
       <div className="profile_info">
         <h3>Account</h3>
         <p className="user_name">@{myProfile.name}</p>
-        <p className="dop_info">User name</p>
-        <hr />
+        <p className="dop_info">User name</p><hr />
         <p title="Кликните два раза чтобы изменить статус">{myStatus}</p>
-        <p className="dop_info">Status</p>
+        <p className="dop_info">Status</p> <hr />
+        <p>{myProfile.id}</p>
+        <p className="dop_info">Id</p>
         <hr />
       </div>
     </div>
