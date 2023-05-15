@@ -1,34 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import  {  useEffect, useRef } from "react";
 import "./ChatLayout.css";
 import { TfiArrowCircleDown } from "react-icons/tfi";
 
 export type ChatMessageType = {
-  message: string;
-  photo: string;
-  userId: number;
-  userName: string;
+ message: string;
+ photo: string;
+ userId: number;
+ userName: string;
 };
 export type propsType = {
   message: string;
   messages: ChatMessageType[];
   setMessage: (message: string) => void;
-  wsChanel: WebSocket;
+  wsChanel: WebSocket | null;
 };
 
-export const MessageWindow = ({ setMessage, ...props }: propsType) => {
+function MessageWindow({messages, ...props }: propsType) {
+
   const messagesAnchorRef: any = useRef<HTMLDivElement>(null);
-  useEffect(() => {}, []);
-  useEffect(() => {
-    setTimeout(()=>{
-      messagesAnchorRef.current.scrollIntoView({ behavior: "smooth" });
-    },3000)
-  }, [props]);
+  useEffect(() => {setTimeout(() => click(), 1000)}, [props]);
   const click = () => {
     messagesAnchorRef.current.scrollIntoView({ behavior: "smooth" });
   };
   return (
     <div className="messages">
-      {props.messages.map((el, key) => {
+      {messages.map((el, key) => {
         return (
           <div key={key} className="singleMessage">
             <div className="userPhoto">
@@ -47,4 +43,6 @@ export const MessageWindow = ({ setMessage, ...props }: propsType) => {
       <div className="anchor" ref={messagesAnchorRef}></div>
     </div>
   );
-};
+}
+
+export default MessageWindow;

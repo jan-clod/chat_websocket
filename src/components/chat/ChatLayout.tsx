@@ -1,178 +1,8 @@
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  SettingOutlined,
-  UserOutlined,
-  WechatOutlined,
-  SendOutlined,
-} from "@ant-design/icons";
-import "./ChatLayout.css";
-import React, { KeyboardEvent, useEffect, useState } from "react";
-import { Layout, Menu, Button, theme, Space } from "antd";
-import { MessageWindow, ChatMessageType } from "./Messages";
-import { NavLink, Routes, Route } from "react-router-dom";
-import { Profile } from "../profile/Profile";
-import { Setting } from "../profile/Settig";
-import { Login, SignUp } from "../login/LoginPage";
-import { Navbar } from "../navbar/Navbar";
+import { KeyboardEvent, useEffect, useState } from "react";
+import MessageWindow, { ChatMessageType } from "./Messages";
 import { AudioOutlined } from "@ant-design/icons";
-import { Input } from "antd";
 import Search from "antd/es/input/Search";
 
-const { Header, Sider, Content } = Layout;
-export const LayoutApp: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
-  let [messages, setMessages] = useState<ChatMessageType[]>([]);
-  let [readyStatus, setReadyStatus] = useState<"pending" | "ready">("pending");
-
-  useEffect(() => {
-    wsChanel.addEventListener("message", (e: MessageEvent) => {
-      //добавляем слушатель на соббытие мessage
-      setMessages((pervMessage) => [...pervMessage, ...JSON.parse(e.data)]);
-    });
-  }, []); // при
-  useEffect(() => {
-    wsChanel.addEventListener("open", () => {
-      //добавляем
-      setReadyStatus("ready");
-    });
-  }, []);
-
-  let [message, setMessage] = useState("");
-  const wsChanel: WebSocket = new WebSocket(
-    "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
-  );
-  const onKeyPressHandler = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") {
-      sendMessage();
-    }
-  };
-  const sendMessage = () => {
-    if (message !== "") {
-      wsChanel.send(message.trim());
-      setMessage("");
-    }
-  };
-
-  return (
-    <Layout className="Layout">
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["2"]}
-          items={[
-            {
-              key: "1",
-              icon: <UserOutlined />,
-              label: <NavLink to={"/profile"}>profile</NavLink>,
-            },
-            {
-              key: "2",
-              icon: <WechatOutlined />,
-              label: <NavLink to={"/chat"}>chat</NavLink>,
-            },
-            {
-              key: "3",
-              icon: <SettingOutlined />,
-              label: <NavLink to={"/setting"}>setting</NavLink>,
-            },
-          ]}
-        />
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
-          />
-          <Button
-            style={{
-              float: "right",
-              margin: "15px ",
-            }}
-          >
-            <NavLink to={"/login_page"}>log Out</NavLink>
-          </Button>
-        </Header>
-        <Content
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-          }}
-        >
-          <Routes>
-            <Route path="/profile" element={<Profile />} />
-            <Route
-              path="/chat"
-              element={
-                <div className="chat_block">
-                  <div className="chat_container">
-                    <MessageWindow
-                      message={message}
-                      messages={messages}
-                      setMessage={setMessage}
-                      wsChanel={wsChanel}
-                    />
-                    <div className="input_block">
-                      <input
-                        onKeyPress={onKeyPressHandler}
-                        onChange={(e) => setMessage(e.currentTarget.value)}
-                        value={message}
-                        placeholder="написать сообщение"
-                        name=""
-                        id="1"
-                        className="form-text"
-                      ></input>
-                      <Button
-                        disabled={readyStatus === "pending"}
-                        onClick={sendMessage}
-                        type="primary"
-                      >
-                        send
-                        <SendOutlined />
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="chat_info">
-                    <h1>Chat info</h1>
-                  </div>
-                </div>
-              }
-            />
-            <Route
-              path="/"
-              element={
-                <MessageWindow
-                  message={message}
-                  messages={messages}
-                  setMessage={setMessage}
-                  wsChanel={wsChanel}
-                />
-              }
-            />
-            <Route path="/setting" element={<Setting />} />
-            <Route path="/login_page" element={<Login isAuth={() => ""} />} />
-            <Route path="/sign_up" element={<SignUp />} />
-          </Routes>
-        </Content>
-      </Layout>
-    </Layout>
-  );
-};
 const suffix = (
   <AudioOutlined
     style={{
@@ -181,56 +11,95 @@ const suffix = (
     }}
   />
 );
-export const ChatLayout: React.FC = () => {
+function ChatLayout() {
   let [messages, setMessages] = useState<ChatMessageType[]>([]); //массив с получеными сообщениями
   let [readyStatus, setReadyStatus] = useState<"pending" | "ready">("pending");
-  let [message, setMessage] = useState("");
-
+  let [myMessage, setMyMessage] = useState("");
+  let [wsChanel, setWsChanel] = useState<WebSocket | null>(null); //ws храним в state для того что бы при измении канал была перерисовка
+  if (wsChanel !== null) {
+    wsChanel.onclose = function() {
+      alert("Error occurred.");
+   }
+  }
   useEffect(() => {
-    wsChanel.addEventListener("message", (e: MessageEvent) => {
-      //добавляем слушатель на соббытие мessage
-      setMessages((pervMessage) => [...pervMessage, ...JSON.parse(e.data)]);
-    });
-  }, []); // при первой отрисовки загружаем все сообщения
-  useEffect(() => {
-    wsChanel.addEventListener("open", () => {
-      //когда канал откроется отменим состояние для дизебла кнопки
-      setReadyStatus("ready");
-    });
+    let ws: WebSocket;
+    const closeHadler = () => {
+      alert("CLOSE WS");
+      debugger;
+      setTimeout(createChanel, 3000); //при закрытии канала пытаемся установить новый канал
+    };
+    function createChanel() {
+      ws?.removeEventListener("close", closeHadler); //ecли сокет уже был закрываем его
+      ws?.close();
+      ws = new WebSocket(
+        "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
+      );
+      ws?.addEventListener("close", closeHadler);
+      setWsChanel(ws);
+    }
+    createChanel();
+    return () => {
+      //cleanUp function
+      ws?.removeEventListener("close", closeHadler);
+      ws?.close();
+    };
   }, []);
 
-  const wsChanel: WebSocket = new WebSocket(
-    "wss://social-network.samuraijs.com/handlers/ChatHandler.ashx"
-  );
+  useEffect(() => {
+    const messageHandler = (e: MessageEvent) => {
+      setMessages((pervMessage) => [...pervMessage, ...JSON.parse(e.data)]);
+    };
+    wsChanel?.addEventListener("message", (e: MessageEvent) => {
+      messageHandler(e);
+      console.log("send", "message_event");
+    }); //добавляем слушатель на соббытие мessage
+    return () => {
+      //cleanUp function
+      wsChanel?.removeEventListener("message", messageHandler);
+    };
+  }, [wsChanel]); // при изменении канала вешаем слушатель уже на новый ws
+
+  useEffect(() => {
+    const openHandler = () => {
+      console.log("open", "open_event");
+      setReadyStatus("ready");
+    }; //когда канал откроется отменим состояние для дизебла кнопки
+    wsChanel?.addEventListener("open", () => openHandler());
+    return () => {
+      //cleanUp function
+      wsChanel?.removeEventListener("open", openHandler);
+    };
+  }, [wsChanel]);
+
   const onKeyPressHandler = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       sendMessage();
     }
   };
   const sendMessage = () => {
-    if (message !== "") {
-      wsChanel.send(message.trim());
-      setMessage("");
+    if (myMessage !== "") {
+      wsChanel?.send(myMessage.trim());
+      setMyMessage("");
     }
   };
   return (
     <div className="ChatLayout">
       <div className="chat_winodw">
         <MessageWindow
-          message={message}
+          message={myMessage}
           messages={messages}
-          setMessage={setMessage}
+          setMessage={setMyMessage}
           wsChanel={wsChanel}
         />
         <div className="send_message">
           <Search
             placeholder="input message"
-            enterButton= {`Send `}
+            enterButton={`Send `}
             size="large"
             suffix={suffix}
             onKeyPress={onKeyPressHandler}
-            onChange={(e) => setMessage(e.currentTarget.value)}
-            value={message}
+            onChange={(e) => setMyMessage(e.currentTarget.value)}
+            value={myMessage}
             name=""
             id="1"
             className="form_inputs"
@@ -244,4 +113,5 @@ export const ChatLayout: React.FC = () => {
       </div>
     </div>
   );
-};
+}
+export default ChatLayout;

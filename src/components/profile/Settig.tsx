@@ -11,7 +11,7 @@ import type { UploadFile } from "antd/es/upload/interface";
 export const Setting = () => {
   let changeFile = (e: any) => {
     let img = e.target.files[0];
-    profileApi.savePhotos(img);
+    profileApi.updatePhotos(img);
   };
 
   useEffect(() => {}, []);

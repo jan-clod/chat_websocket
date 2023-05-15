@@ -1,0 +1,128 @@
+.profile {
+  background-color: white;
+  padding: 20px;
+}
+.profile .profile_photo {
+  position: relative;
+}
+.profile .profile_photo .update_PhotoButton {
+  position: absolute;
+  float: right;
+  left: 300px;
+  top: 270px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: xx-large;
+  width: 70px;
+}
+.profile .profile_photo .update_PhotoButton .icon_photo :hover {
+  -webkit-transition: 0.19s;
+  transition: 0.19s;
+  color: #4c4c4c;
+}
+.profile .profile_photo .update_PhotoButton .input__file {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+.profile .profile_info h3 {
+  color: #0285f1;
+  margin-bottom: 5px;
+}
+.profile .profile_info p {
+  margin: 7px;
+  margin-left: 0;
+  font-weight: 600;
+}
+.profile .profile_info .dop_info {
+  color: rgb(63, 63, 63);
+  font-weight: 300;
+}
+
+.input__wrapper {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: larger;
+  background-color: rgba(240, 248, 255, 0.672);
+  border-radius: 50%;
+  margin-top: -50px;
+  margin-right: 20px;
+  width: 50px;
+  height: 50px;
+  float: right;
+}
+.input__wrapper .input__file {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+.photo_container {
+  width: 300px;
+  height: 300px;
+}
+
+@media (max-width: 500px) {
+  .profile {
+    padding: 0;
+    padding-bottom: 0.1px;
+  }
+  .profile .profile_photo img {
+    width: 100%;
+  }
+  .profile .profile_photo .update_PhotoButton {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    font-size: larger;
+    background-color: rgba(240, 248, 255, 0.672);
+    border-radius: 50%;
+    margin-top: -23px;
+    margin-right: 20px;
+    width: 50px;
+    height: 50px;
+    float: right;
+    cursor: pointer;
+  }
+  .profile .profile_photo .update_PhotoButton :hover {
+    background-color: rgb(240, 248, 255);
+  }
+  .profile .profile_info {
+    margin: 20px;
+  }
+  .profile .profile_info h3 {
+    color: #0285f1;
+    margin-bottom: 5px;
+  }
+  .profile .profile_info p {
+    margin: 7px;
+    margin-left: 0;
+    font-weight: 600;
+  }
+  .profile .profile_info .dop_info {
+    color: rgb(63, 63, 63);
+    font-weight: 300;
+  }
+}

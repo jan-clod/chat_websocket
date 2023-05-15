@@ -1,0 +1,117 @@
+.profile {
+  background-color: white;
+  padding: 20px;
+  .profile_photo {
+    position: relative;
+    img{
+
+    }
+    .update_PhotoButton {
+      position: absolute;
+      float: right;
+      left: 300px;
+      top:270px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: xx-large;
+      width: 70px;
+      .icon_photo {
+        :hover {
+          transition: 0.19s;
+          color: #4c4c4c;
+        }
+      }
+
+      .input__file {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+      }
+    }
+  }
+  .profile_info {
+    h3 {
+      color: #0285f1;
+      margin-bottom: 5px;
+    }
+    p {
+      margin: 7px;
+      margin-left: 0;
+      font-weight: 600;
+    }
+    .dop_info {
+      color: rgb(63, 63, 63);
+      font-weight: 300;
+    }
+  }
+}
+.input__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: larger;
+  background-color: rgba(240, 248, 255, 0.672);
+  border-radius: 50%;
+  margin-top: -50px;
+  margin-right: 20px;
+  width: 50px;
+  height: 50px;
+  float: right;
+  .input__file {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+  }
+}
+.photo_container{
+  width: 300px;
+  height: 300px;
+}
+
+@media (max-width: 500px) {
+  .profile {
+    padding: 0;
+    padding-bottom: 0.1px;
+    .profile_photo {
+      img {
+        width: 100%;
+      }
+      .update_PhotoButton {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: larger;
+        background-color: rgba(240, 248, 255, 0.672);
+        border-radius: 50%;
+        margin-top: -23px;
+        margin-right: 20px;
+        width: 50px;
+        height: 50px;
+        float: right;
+        cursor: pointer;
+        :hover {
+          background-color: rgb(240, 248, 255);
+        }
+      }
+    }
+    .profile_info {
+      margin: 20px;
+      h3 {
+        color: #0285f1;
+        margin-bottom: 5px;
+      }
+      p {
+        margin: 7px;
+        margin-left: 0;
+        font-weight: 600;
+      }
+      .dop_info {
+        color: rgb(63, 63, 63);
+        font-weight: 300;
+      }
+    }
+  }
+}
