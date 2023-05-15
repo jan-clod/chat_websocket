@@ -18,7 +18,7 @@ function ChatLayout() {
   let [wsChanel, setWsChanel] = useState<WebSocket | null>(null); //ws храним в state для того что бы при измении канал была перерисовка
   if (wsChanel !== null) {
     wsChanel.onclose = function() {
-      alert("Error WS.");
+      console.log("Error WS.");
    }
   }
   useEffect(() => {
