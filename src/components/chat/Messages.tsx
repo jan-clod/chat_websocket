@@ -16,6 +16,7 @@ export type propsType = {
 };
 
 function MessageWindow({messages, ...props }: propsType) {
+console.log('qwe');
 
   const messagesAnchorRef: any = useRef<HTMLDivElement>(null);
   useEffect(() => {setTimeout(() => click(), 1000)}, [props]);
